@@ -41,6 +41,8 @@
 			<tr><td>Confirm Password:</td><td> <input type="password"  name="sCassword" id="sCassword" size="20" value=""/></td></tr>
 			<tr><td>Email:</td><td> <input type="text"  name="sEmail" id="sEmail" size="20" value=""/></td></tr>
 			<tr><td>Mobile:</td><td> <input type="text"  name="sMobile" id="sMobile" size="20" value=""/></td></tr>
+			<tr><td>Security Question:</td><td> <input type="list"  name="sSecQue" id="sSecQue" size="20" disabled /></td></tr> <!--- Add  drop down list for security question--->
+ 			<tr><td>Answer:</td><td> <input type="text"  name="sSecAns" id="sSecAns" size="20" /></td></tr>
 			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="submit" id="submit" value="Sign Up"/></td></tr>
 			<tr ><td colspan="2" style="text-align:center"">Already have an account? 
 			<a href="index.php" class="signup">Log In</a></td></tr>
