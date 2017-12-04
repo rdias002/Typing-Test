@@ -11,22 +11,25 @@
 				color: white;
 				text-align:center;
 			}
-			.signup{
-				background-color:transparent;
-				color:white;
-				border:0;
-			}
-			
-			input[type="text"], input[type="password"]{
-				background: transparent;
-				border: 3 white;
+			.val{
+				background: transparent;				
 				color:white;
 				font-size:15px;
+				border:1px white solid;
+				padding:3px 5px;
 			}
 			td{
 				color : white;
 				font-size:20px;
 				text-align:left;
+			}
+			.btn{
+				color : white;
+				background-color : transparent;
+				border : 1px white solid;
+				font-size : 20px;
+				padding : 10px;
+				margin-top : 10px;
 			}
 			
 		</style>
@@ -36,14 +39,30 @@
 		<h2>Welcome To Your Online Typing Test</h2>
 		<form action="" method="POST">
 			<table align="center" style="margin-top:100px">
-			<tr><td>User Name:</td><td> <input type="text"  name="lusername" id="lusername" size="20" value=""/></td></tr>
-			<tr><td>Password:</td><td> <input type="password"  name="lpassword" id="lpassword" size="20" value=""/></td></tr>
-			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="submit" id="submit" value="Login"/></td></tr>
-			<tr ><td colspan="2" class="signup">Don't have an account? 
-			<a href="signup.php" class="signup">Sign Up</a></td></tr>
+			<tr><td>User Name:</td><td> <input type="text"  name="lusername" id="lusername" size="20" value="" class="val"/></td></tr>
+			<tr><td>Password:</td><td> <input type="password"  name="lpassword" id="lpassword" size="20" value="" class="val"/></td></tr>
+			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="submit" id="submit" value="Login" class="btn"/></td></tr>
+			<tr><td colspan="2" style="text-align:center">Don't have an account? <a style="color:white" href="signup.php">Sign Up</a></td></tr>
+			<tr><td colspan="2" style="text-align:center"><a style="color:white" href="forgotpassword.php">Forgot password?</a></td></tr>
 			</table>
 		</form>
-		
-		
+	
+	
+	
 	</body>
 </html>
+<?php
+	require('db.php');
+	if(isset($_POST["lusername"],$_POST["lpassword"])){
+		$username = htmlspecialchars($_POST["lusername"]);
+		$password = htmlspecialchars($_POST["lpassword"]);
+		$user = $conn->query("select upassword from users where uname like '$username'");
+		$temp = $user->fetch_assoc();
+		if($user->num_rows == 0 || $temp["upassword"] !== $password)
+			echo "<br/><br/><strong>Invalid Username & Password</strong><br>";
+		else{
+			header( 'Location:maingame.php' );
+		}
+	//	print_r($user);
+	}
+?>
