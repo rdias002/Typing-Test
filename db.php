@@ -10,9 +10,9 @@
 		$conn->select_db("typingtest");
 		$conn->query("create table users(
 		uid int(3) auto_increment, 
-		uname varchar(25), 
-		upassword varchar(25) not null, 
-		umobile int(10), 
+		uname varchar(25) not null, 
+		upassword varchar(32) not null, 
+		umobile varchar(10), 
 		uemail varchar(30) not null, 
 		usecque varchar(40) not null, 
 		usecans varchar(40) not null, 

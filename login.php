@@ -39,8 +39,8 @@
 		<h2>Welcome To Your Online Typing Test</h2>
 		<form action="" method="POST">
 			<table align="center" style="margin-top:100px">
-			<tr><td>User Name:</td><td> <input type="text"  name="lusername" id="lusername" size="20" value="" class="val"/></td></tr>
-			<tr><td>Password:</td><td> <input type="password"  name="lpassword" id="lpassword" size="20" value="" class="val"/></td></tr>
+			<tr><td>User Name:</td><td> <input type="text"  name="lUsername" id="lUsername" size="20" value="" class="val"/></td></tr>
+			<tr><td>Password:</td><td> <input type="password"  name="lPassword" id="lPassword" size="20" value="" class="val"/></td></tr>
 			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="submit" id="submit" value="Login" class="btn"/></td></tr>
 			<tr><td colspan="2" style="text-align:center">Don't have an account? <a style="color:white" href="signup.php">Sign Up</a></td></tr>
 			<tr><td colspan="2" style="text-align:center"><a style="color:white" href="forgotpassword.php">Forgot password?</a></td></tr>
@@ -53,9 +53,9 @@
 </html>
 <?php
 	require('db.php');
-	if(isset($_POST["lusername"],$_POST["lpassword"])){
-		$username = htmlspecialchars($_POST["lusername"]);
-		$password = htmlspecialchars($_POST["lpassword"]);
+	if(isset($_POST["lUsername"],$_POST["lPassword"])){
+		$username = htmlspecialchars($_POST["lUsername"]);
+		$password = htmlspecialchars($_POST["lPassword"]);
 		$user = $conn->query("select upassword from users where uname like '$username'");
 		$temp = $user->fetch_assoc();
 		if($user->num_rows == 0 || $temp["upassword"] !== $password)

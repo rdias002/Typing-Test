@@ -32,31 +32,75 @@
 				border:1px white solid;
 				padding:3px 5px;
 			}
+			select option{
+				color:white;
+				background-color:rgb(199,44,50);
+			}
 		</style>
+		<script>
+			var spass = document.getElementById("sSPassword");
+			var cpass = document.getElementById("sCPassword");
+			//cpass.addEventListener("onchange",checkspass);
+			
+		</script>
 	</head>
 	<body>
 		<h1>Online Typing Test</h1>
 		<h2>Welcome To Your Online Typing Test</h2>
 		<form action="" method="POST">
 			<table align="center" style="margin-top:100px">
-			<tr><td>User Name:</td><td> <input type="text"  name="susername" id="susername" size="23" value="" class="val"/></td></tr>
-			<tr><td>Password:</td><td> <input type="password"  name="sPassword" id="sPassword" size="23" value="" class="val"/></td></tr>
-			<tr><td>Confirm Password:</td><td> <input type="password"  name="sCassword" id="sCassword" size="23" value="" class="val"/></td></tr>
-			<tr><td>Email:</td><td> <input type="email"  name="sEmail" id="sEmail" size="23" value="" class="val"/></td></tr>
-			<tr><td>Mobile:</td><td> <input type="text"  name="sMobile" id="sMobile" size="23" value="" class="val"/></td></tr>
-			<tr><td>Security Question:</td><td> <select class="val" style="color:black" id="sSecQue"/>
-				<option value="What is your favourite color?" >What is your favourite color?</option>
+			<tr><td>User Name:</td><td> <input type="text"  name="sUsername" id="sUsername" size="23" value="<?php echo isset($_POST["sUsername"])?$_POST["sUsername"]:""?>" class="val" maxlength="10"/></td></tr>
+			<tr><td>Password:</td><td> <input type="password"  name="sSPassword" id="sSPassword" size="23" value="<?php echo isset($_POST["sSPassword"])?$_POST["sSPassword"]:""?>" class="val" maxlength="32"/></td></tr>
+			<tr><td>Confirm Password:</td><td> <input type="password"  name="sCPassword" id="sCPassword" size="23" value="<?php echo isset($_POST["sCPassword"])?$_POST["sCPassword"]:""?>" class="val" maxlength="32"/></td></tr>
+			<tr><td>Email:</td><td> <input type="email"  name="sEmail" id="sEmail" size="23" value="<?php echo isset($_POST["sEmail"])?$_POST["sEmail"]:""?>" class="val" maxlength="25"/></td></tr>
+			<tr><td>Mobile Number:</td><td> <input type="text"  name="sMobile" id="sMobile" size="23" value="<?php echo isset($_POST["sMobile"])?$_POST["sMobile"]:""?>" class="val" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$"/></td></tr>
+			<tr><td>Security Question:</td><td> <select class="val" id="sSecQue" name="sSecQue"/>
+				<option value="What is your favourite color?">What is your favourite color?</option>
 				<option value="Which city were you born in?">Which city were you born in?</option>
 				<option value="What is your favourite food?">What is your favourite food?</option>
 			</select></td></tr>
- 			<tr><td>Answer:</td><td> <input type="text"  name="sSecAns" id="sSecAns" size="23" class="val"/></td></tr>
+ 			<tr><td>Answer:</td><td> <input type="text"  name="sSecAns" id="sSecAns" size="23" class="val" maxlength="20" value="<?php echo isset($_POST["sSecAns"])?$_POST["sSecAns"]:""?>"/></td></tr>
 			<tr><td colspan="2" style="text-align:center"> <input type="submit" name="submit" id="submit" value="Sign Up" class="btn"/></td></tr>
-			<tr ><td colspan="2" style="text-align:center">Already have an account? <a style="color:white" href="index.php" >Login</a></td></tr>
+			<tr ><td colspan="2" style="text-align:center">Already have an account? <a style="color:white" href="login.php" >Login</a></td></tr>
 			</table>
 			</tr>
 			</table>
 		</form>
-
+		
+		
+		
+		<?php
+			require("db.php");
+			if(isset($_POST["sUsername"],$_POST["sSPassword"],$_POST["sCPassword"],$_POST["sEmail"],$_POST["sMobile"],$_POST["sSecQue"],$_POST["sSecAns"])){
+				$sUsername = $_POST["sUsername"];
+				$sSPassword = $_POST["sSPassword"];
+				$sCPassword = $_POST["sCPassword"];
+				$sEmail = $_POST["sEmail"];
+				$sMobile = $_POST["sMobile"];
+				$sSecQue = $_POST["sSecQue"];
+				$sSecAns = $_POST["sSecAns"];
+				if($conn->errno)
+					die("Error at server side. Will be fixed soon. Sorry for the inconvinience");
+				if($sSPassword != $sCPassword){
+					die("Passwords don't match");
+				}
+				$uns = $conn->query("select uname from users where uname = '$sUsername'");
+				if($uns->num_rows == 1){
+					die("User name already exists");
+				}
+				$que ="
+					insert into users (uname,upassword,umobile,uemail,usecque,usecans) values ('$sUsername','$sSPassword','$sMobile','$sEmail','$sSecQue','$sSecAns');
+				";				
+				if($conn->real_query($que)){
+					echo "Welcome, you can now <a style='color:white' href='login.php' >Login</a> to the site";
+				}
+				else{
+					die("An error occured, please retry: ".$conn->error);
+				}
+			}
+		
+		?>
+		
 
 	</body>
 </html>

@@ -40,12 +40,12 @@
 		<form action="" method="POST">
 			<table align="center" style="margin-top:100px">
 			<tr><td>User Name:</td><td> <input type="text"  name="lusername" id="lusername" size="20" value="<?php echo isset($_POST["lusername"])?$_POST["lusername"]:""?>" class="val"/></td></tr>
-			<tr><td>Security Question:</td><td> <input type="text"  name="sSecQue" id="sSecQue" size="20" disabled class="val"/></td></tr>
+			<tr><td>Security Question:</td><td> <input type="text"  name="sSecQue" id="sSecQue" size="20" readonly class="val"/></td></tr>
 			<tr><td>Answer:</td><td> <input type="text" value="<?php echo isset($_POST["sSecAns"])?$_POST["sSecAns"]:""?>" name="sSecAns" id="sSecAns" size="20" class="val"/></td></tr>
 			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="recoverpass" id="recoverpass" value="Get Question" class="btn"/>
 			<input type="hidden" id="queorpass" name="queorpass" value="que"/>
 			</td></tr>
-			<tr ><td colspan="2" style="text-align:center"><a style="color:white" href="index.php" >Login</a></td></tr>
+			<tr ><td colspan="2" style="text-align:center"><a style="color:white" href="login.php" >Login</a></td></tr>
 			</table>
 			<p id="forpass"></p>
 		</form>
