@@ -56,6 +56,7 @@
 	if(isset($_POST["lUsername"],$_POST["lPassword"])){
 		$username = htmlspecialchars($_POST["lUsername"]);
 		$password = htmlspecialchars($_POST["lPassword"]);
+		
 		$user = $conn->query("select upassword from users where uname like '$username'");
 		$temp = $user->fetch_assoc();
 		if($user->num_rows == 0 || $temp["upassword"] !== $password)

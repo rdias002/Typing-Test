@@ -39,9 +39,9 @@
 		<h2>Welcome To Your Online Typing Test</h2>
 		<form action="" method="POST">
 			<table align="center" style="margin-top:100px">
-			<tr><td>User Name:</td><td> <input type="text"  name="lusername" id="lusername" size="20" value="<?php echo isset($_POST["lusername"])?$_POST["lusername"]:""?>" class="val"/></td></tr>
+			<tr><td>User Name:</td><td> <input type="text"  name="lusername" id="lusername" size="20" value="<?php echo isset($_POST["lusername"])?$_POST["lusername"]:""?>" class="val" required/></td></tr>
 			<tr><td>Security Question:</td><td> <input type="text"  name="sSecQue" id="sSecQue" size="20" readonly class="val"/></td></tr>
-			<tr><td>Answer:</td><td> <input type="text" value="<?php echo isset($_POST["sSecAns"])?$_POST["sSecAns"]:""?>" name="sSecAns" id="sSecAns" size="20" class="val"/></td></tr>
+			<tr style="visibility:hidden" id="sSecAnstr"><td>Answer:</td><td> <input type="text" value="<?php echo isset($_POST["sSecAns"])?$_POST["sSecAns"]:""?>" name="sSecAns" id="sSecAns" size="20" class="val"/></td></tr>
 			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="recoverpass" id="recoverpass" value="Get Question" class="btn"/>
 			<input type="hidden" id="queorpass" name="queorpass" value="que"/>
 			</td></tr>
@@ -69,6 +69,7 @@
 							document.getElementById('queorpass').value='pass';
 							document.getElementById('sSecAns').value='';
 							document.getElementById('recoverpass').value='Get Password';
+							document.getElementById('sSecAnstr').style='visibility:visible';
 						</script>
 					";
 					echo $script;
