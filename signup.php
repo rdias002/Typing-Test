@@ -1,12 +1,17 @@
+<?php
+	session_start();
+	if(isset($_SESSION["username"]) && $_SESSION["username"] != 'Guest'){
+		header( 'Location:maingame.php' );
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Sign Up Page</title>
 		<style>
 			body{
-				background-image:url(res/indexbg.jpg);
+				background:url(res/indexbg.jpg) no-repeat center center fixed;
 				font-size:20px;
-				background-repeat: no-repeat;
 				background-size: cover;
 				color: white;
 				text-align:center;
@@ -72,7 +77,7 @@
 				$sMobile = $_POST["sMobile"];
 				$sSecQue = $_POST["sSecQue"];
 				$sSecAns = $_POST["sSecAns"];
-				/*if($conn->errno)
+				if($conn->errno)
 					die("Error at server side. Will be fixed soon. Sorry for the inconvinience");
 				if($sSPassword != $sCPassword){
 					die("Passwords don't match");
@@ -83,8 +88,8 @@
 				}
 				$que ="
 					insert into users (uname,upassword,umobile,uemail,usecque,usecans) values ('$sUsername','$sSPassword','$sMobile','$sEmail','$sSecQue','$sSecAns');
-				";*/
-				$que = "insert into users () values ();";
+				";
+				//$que = "insert into users () values ();";
 				if($conn->real_query($que)){
 					print("Successful! You will now be redirected to login page");
 					

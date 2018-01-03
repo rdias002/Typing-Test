@@ -1,12 +1,17 @@
+<?php
+	session_start();
+	if(isset($_SESSION["username"]) && $_SESSION["username"] != 'Guest'){
+		header( 'Location:maingame.php' );
+	}
+?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Login Page</title>
 		<style>
 			body{
-				background-image:url(res/indexbg.jpg);
+				background:url(res/indexbg.jpg) no-repeat center center fixed;
 				font-size:20px;
-				background-repeat: no-repeat;
 				background-size: cover;
 				color: white;
 				text-align:center;
@@ -44,6 +49,7 @@
 			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="submit" id="submit" value="Login" class="btn"/></td></tr>
 			<tr><td colspan="2" style="text-align:center">Don't have an account? <a style="color:white" href="signup.php">Sign Up</a></td></tr>
 			<tr><td colspan="2" style="text-align:center"><a style="color:white" href="forgotpassword.php">Forgot password?</a></td></tr>
+			<tr><td colspan="2" style="text-align:center"><a style="color:white" href="maingame.php">Not Now</a></td></tr>
 			</table>
 		</form>
 	
@@ -62,6 +68,7 @@
 		if($user->num_rows == 0 || $temp["upassword"] !== $password)
 			echo "<br/><br/><strong>Invalid Username & Password</strong><br>";
 		else{
+			$_SESSION["username"] = $username;
 			header( 'Location:maingame.php' );
 		}
 	//	print_r($user);

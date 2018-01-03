@@ -2,31 +2,7 @@
 <html>
 	<head>
 		<title>Online Typing Test</title>
-		<style>
-			body{
-				background-image:url(res/indexbg.jpg);
-				font-size:20px;
-				background-repeat: no-repeat;
-				background-size: cover;
-				color: white;
-				text-align:center;
-			}
-			
-			a:link {/* unvisited link */
-				color:white;
-				text-decoration:none;
-			}
-			a:visited {/* visited link */
-				color:white;
-			}
-			a:hover {/* mouse over link */
-				color:white;
-				font-size:120%;
-			}
-			a:active {/* selected link */
-				color:white;
-			}
-		</style>
+		<link rel="stylesheet" href="css/typingtest.css"/>
 	</head>
 	<body>
 		<h1>Online Typing Test</h1>

@@ -1,0 +1,118 @@
+body{
+	background:url(../res/indexbg.jpg) no-repeat center center fixed;
+	background-size: cover;
+	color: white;
+	text-align:center;
+}
+.loginout{
+	position:absolute;
+	right:10px;
+}
+.loginout a{
+	color:white;
+	font-size:23px;
+}
+.loginout span{
+	color:white;
+	font-size:23px;
+}
+.bod{
+	display:grid;
+	grid-template-columns:25fr 50fr 25fr;
+	grid-template-areas:"left center right";
+	height:100px;
+}
+.container{
+	grid-area:center;
+	margin:0 auto;
+	max-width:600px;
+	height:170px;
+	display:grid;
+	grid-template-rows: 3fr 1fr;
+	grid-template-areas: "output" "input";
+}
+.words{
+	border-radius:5px;
+	grid-area:output;
+	background-color:white;
+	color:black;
+	text-align:left;
+	font-size:30px;
+	padding:5px;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	overflow:hidden;
+	transition:opacity 1s;
+}
+.input{
+	border-radius:5px;
+	grid-area:input;
+	display:grid;
+	grid-template-columns:5fr 1fr 1fr;
+	grid-template-areas:"inputf replay time";
+}
+.inputf{
+	grid-area:inputf;
+	padding:10px;
+	margin:10px;
+	font-size:30px;
+	float:left;
+	border:3px solid white;
+	border-radius:10px;
+}
+input.inputf:focus{outline:0px;}
+.replay{
+	grid-area:replay;
+	background-color:transparent;
+	color:white;
+	font-size:25px;
+	border:0px;
+	margin:20px 10px ;
+}
+.result{
+	grid-area:output;
+	opacity:0;
+	transition:opacity 2s;
+	background-color:transparent;
+	color:white;
+	font-size:30px;
+	border-radius:15px;
+	border:2px white solid;
+}
+.time{
+	grid-area:time;
+	color:white;
+	font-size:30px;
+	border:0px;
+	margin:25px 10px ;
+}
+div.words span{
+	margin-right:5px;
+	display:block;
+	height:50%;
+}
+.highlight{
+	background-color:rgb(230,230,230);
+	border-radius:5px;
+}
+.wrong{
+	color:red;
+}
+.correct{
+	color:green;
+}
+.warn{
+	background-color:rgb(240,0,0);
+}
+button.replay:focus {outline:0;}
+button.replay:hover {
+	font-weight:bold;
+}
+.details{
+	grid-area:left;
+	background-color:blue;
+	display:grid;
+	grid-template-columns:1fr 1fr;
+	grid-template-areas:"detail value";
+}

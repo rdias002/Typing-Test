@@ -4,9 +4,8 @@
 		<title>Password Recovery Page</title>
 		<style>
 			body{
-				background-image:url(res/indexbg.jpg);
+				background:url(res/indexbg.jpg) no-repeat center center fixed;
 				font-size:20px;
-				background-repeat: no-repeat;
 				background-size: cover;
 				color: white;
 				text-align:center;
@@ -32,16 +31,21 @@
 				border:1px white solid;
 				padding:3px 5px;
 			}
+			#sSecAnstr{
+				opacity:0;
+				transition: opacity 1s;
+			}
 		</style>
 	</head>
 	<body>
+		<script src="scripts/jquery-3.2.1.min.js"></script>
 		<h1>Online Typing Test</h1>
 		<h2>Welcome To Your Online Typing Test</h2>
 		<form action="" method="POST">
 			<table align="center" style="margin-top:100px">
 			<tr><td>User Name:</td><td> <input type="text"  name="lusername" id="lusername" size="20" value="<?php echo isset($_POST["lusername"])?$_POST["lusername"]:""?>" class="val" required/></td></tr>
 			<tr><td>Security Question:</td><td> <input type="text"  name="sSecQue" id="sSecQue" size="20" readonly class="val"/></td></tr>
-			<tr style="visibility:hidden" id="sSecAnstr"><td>Answer:</td><td> <input type="text" value="<?php echo isset($_POST["sSecAns"])?$_POST["sSecAns"]:""?>" name="sSecAns" id="sSecAns" size="20" class="val"/></td></tr>
+			<tr id="sSecAnstr"><td>Answer:</td><td> <input type="text" value="<?php echo isset($_POST["sSecAns"])?$_POST["sSecAns"]:""?>" name="sSecAns" id="sSecAns" size="20" class="val"/></td></tr>
 			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="recoverpass" id="recoverpass" value="Get Question" class="btn"/>
 			<input type="hidden" id="queorpass" name="queorpass" value="que"/>
 			</td></tr>
@@ -49,6 +53,10 @@
 			</table>
 			<p id="forpass"></p>
 		</form>
+		<script>
+			$(document).ready(function(){
+			});
+		</script>
 		<?php
 			require('db.php');
 			if(isset($_POST["lusername"])){
@@ -65,11 +73,11 @@
 					if($opt == "que"){											
 						$script = "
 						<script>
-							document.getElementById('sSecQue').value='$secque';
-							document.getElementById('queorpass').value='pass';
-							document.getElementById('sSecAns').value='';
-							document.getElementById('recoverpass').value='Get Password';
-							document.getElementById('sSecAnstr').style='visibility:visible';
+							$('#sSecQue').val('$secque');
+							$('#queorpass').val('pass');
+							$('#sSecAns').val('');
+							$('#recoverpass').val('Get Password');
+							$('#sSecAnstr').css('opacity','1');
 						</script>
 					";
 					echo $script;
@@ -77,13 +85,13 @@
 					else{
 						$script = "
 							<script>
-								var uname = document.getElementById('lusername').value;
-								var secans = document.getElementById('sSecAns').value;
-								document.getElementById('queorpass').value='que';
+								var uname = $('#lusername').val();
+								var secans = $('#sSecAns').val();
+								$('#queorpass').val('que');
 								if(uname == '$uname' && secans == '$secans')
-									document.getElementById('forpass').innerHTML = 'Your password is: $upass';
+									$('#forpass').text('Your password is: $upass');
 								else
-									document.getElementById('forpass').innerHTML = 'Incorrect answer';
+									$('#forpass').text('Incorrect answer');
 							</script>
 						";
 						echo $script;
