@@ -8,21 +8,51 @@
 		if($conn->connect_error)
 			die("Unexpected Error, please contact Administrator");
 		$conn->select_db("typingtest");
-		$conn->query("create table users(
-		uid int(3) auto_increment, 
-		uname varchar(25) not null, 
-		upassword varchar(32) not null, 
-		umobile varchar(10), 
-		uemail varchar(30) not null, 
-		usecque varchar(40) not null, 
-		usecans varchar(40) not null, 
-		primary key(uid), unique key(uname))CHARSET=latin1 COLLATE latin1_general_cs;");
-		
-		$conn->query("insert into users (uid,uname,upassword,uemail,usecque,usecans) values(0,'admin','admin','admin@mail.com','What is your favourite color?','red')");
-		
-		$conn->query("insert into users (uid,uname,upassword,uemail,usecque,usecans) values(1'Guest','Guest','Guest@mail.com','What is your favourite color?','none')");
-		
+		//Creation of table Users
+		$conn->query("create table users( 
+			uname varchar(25) character set latin1 collate latin1_general_cs, 
+			upassword varchar(35) character set latin1 collate latin1_general_cs not null , 
+			umobile varchar(10), 
+			uemail varchar(30) not null, 
+			usecque varchar(40) not null, 
+			usecans varchar(40) not null , 
+			primary key(uname));
+		");
+				echo $conn->error;
+
+		//Creation of table UserDetails
+		$conn->query("create table userdetails(
+			uname varchar(25) character set latin1 collate latin1_general_cs,
+			hgrosswpm int(4),
+			hnetwpm int(4),
+			haccuracy int(3),
+			notries int(4),
+			primary key(uname),
+			foreign key(uname) references users(uname)
+			);
+		");
+				echo $conn->error;
+
+		//Creation of table Texts
 		$conn->query("create table texts (textid int(2) primary key, value longtext)");
+				echo $conn->error;
+
+		//Creation of table Highscores
+		$conn->query("create table highscores(
+			uname varchar(25) character set latin1 collate latin1_general_cs, 
+			hnetwpm int(4), 
+			recdate datetime,
+			foreign key(uname) references userdetails(uname));
+		");
+		echo $conn->error;
+		//Insertion of Values
+		$conn->query("insert into users (uname,upassword,uemail,usecque,usecans) values('Guest','Guest','Guest@mail.com','What is your favourite color?','none')");
+		
+		$conn->query("insert into userdetails (uname,hgrosswpm,hnetwpm,haccuracy,notries) values('Guest',0,0,0,0)");
+		
+		$conn->query("insert into highscores (uname,hgrosswpm) values('Guest',0,0,0,0)");
+		
+		
 		
 		$data = "so|say|have|you|too|story|little|walk|because|got|why|few|found|together|other|almost|end|back|man|face|America|took|study|home|soon|next|different|paper|my|idea|came|year|almost";
 		
@@ -46,7 +76,6 @@
 		
 		$txt = $conn->real_escape_string("or|four|for|before|get|after|more|what|may|turn|side|but|should|even|he|said|two|will|it|song|stop|quick|second|carry|another|add|high|later|sentence|its|animal|long|been|help|always|begin|sentence|being|far|feet|may|put|land|who|here|through|light|an|state|us|house|give|that|play|her|one|never|Indian|try|if|his|he|land|young|another|away|air|through|left|part|letter|set|began|learn|find|don't|tell|grow|such|girl|old|great|word|life|house|got|so|really|new|often|most|same|were|children|sound|any|walk|look|group|father|and|later|still|get|up|without|took|seem|leave|want|think|study|leave|can|that|more|watch|quite|second|took|do|about|small|story|near|book|did|see|hear|little|been|come|just|do|does|why|down|ask|they|soon|help|let|here|stop|ask|most|talk|car|about|after|his|might|way|and|mean|when|saw|almost|much|answer|time|your|both|along|boy|over|name|has|been|well|part|write|got|important|say|miss|big|think|around|place|work|here|boy|girl|good|cut|feet|from|country|song|question|your|");
 		$conn->query("insert into texts values (7,'$txt')");
-		
 	}
 	
 

@@ -20,32 +20,39 @@ body{
 	display:grid;
 	grid-template-columns:25fr 50fr 25fr;
 	grid-template-areas:"left center right";
-	height:100px;
+	
 }
 .container{
+	position:relative;
 	grid-area:center;
 	margin:0 auto;
-	max-width:600px;
-	height:170px;
+	width:600px;
 	display:grid;
-	grid-template-rows: 3fr 1fr;
+	grid-template-rows: 3fr 2fr;
 	grid-template-areas: "output" "input";
 }
 .words{
 	border-radius:5px;
 	grid-area:output;
 	background-color:white;
-	color:black;
-	text-align:left;
-	font-size:30px;
 	padding:5px;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
 	overflow:hidden;
 	transition:opacity 1s;
+	height:80px;
+	width:100%;
+	text-align:left;
+	color:black;
+	font-size:30px;
+	user-select: none;
+
 }
+
 .input{
+	
+	position:absolute;
 	border-radius:5px;
 	grid-area:input;
 	display:grid;
@@ -68,24 +75,45 @@ input.inputf:focus{outline:0px;}
 	color:white;
 	font-size:25px;
 	border:0px;
-	margin:20px 10px ;
+	margin:20px 10px;
+	cursor:pointer;
 }
 .result{
 	grid-area:output;
 	opacity:0;
-	transition:opacity 2s;
+	transition:opacity 1s;
 	background-color:transparent;
 	color:white;
 	font-size:30px;
 	border-radius:15px;
 	border:2px white solid;
+	padding:auto;
 }
-.time{
+
+.time-dd{
 	grid-area:time;
 	color:white;
 	font-size:30px;
 	border:0px;
 	margin:25px 10px ;
+	cursor:pointer;
+	height:35px;
+	user-select: none;
+}
+.time-dd-contents{
+	display:none;
+	background-color:rgb(199,44,50);
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.time-dd-contents span{
+		padding:10px;
+		display:block;
+		font-size:20px;
+}
+
+.time-dd-contents span:hover{
+	background-color:rgb(210,45,51)
 }
 div.words span{
 	margin-right:5px;
@@ -107,12 +135,39 @@ div.words span{
 }
 button.replay:focus {outline:0;}
 button.replay:hover {
-	font-weight:bold;
+	border:1px;
 }
 .details{
 	grid-area:left;
-	background-color:blue;
 	display:grid;
-	grid-template-columns:1fr 1fr;
-	grid-template-areas:"detail value";
+	grid-template-columns:auto auto;
+	grid-gap:10px;
+	font-size:1.2em;
+	text-align:left;
+	padding:5px;
+	border:1px white solid;
+	max-height:200;
+}
+.details div{
+	padding:2px;
+}
+td{
+	color : white;
+	font-size:20px;
+	text-align:left;
+}
+
+.editAC{
+	cursor:pointer;
+}
+.editAC:hover{
+	text-decoration:underline;
+}
+.aceditor{
+	grid-area:center;
+	display:none;
+	background:white;
+	border-radius:5px;
+	height:400px;
+	z-index:2;
 }

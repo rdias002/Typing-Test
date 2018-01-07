@@ -32,8 +32,7 @@
 				padding:3px 5px;
 			}
 			#sSecAnstr{
-				opacity:0;
-				transition: opacity 1s;
+				display:none;
 			}
 		</style>
 	</head>
@@ -77,7 +76,8 @@
 							$('#queorpass').val('pass');
 							$('#sSecAns').val('');
 							$('#recoverpass').val('Get Password');
-							$('#sSecAnstr').css('opacity','1');
+							$('#sSecAnstr').fadeIn(700);
+							//$('#sSecAnstr').css('opacity','1');
 						</script>
 					";
 					echo $script;
@@ -86,9 +86,9 @@
 						$script = "
 							<script>
 								var uname = $('#lusername').val();
-								var secans = $('#sSecAns').val();
+								var secans = $('#sSecAns').val().toLowerCase();
 								$('#queorpass').val('que');
-								if(uname == '$uname' && secans == '$secans')
+								if(uname == '$uname' && secans == '$secans'.toLowerCase())
 									$('#forpass').text('Your password is: $upass');
 								else
 									$('#forpass').text('Incorrect answer');
