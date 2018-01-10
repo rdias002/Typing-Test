@@ -81,16 +81,34 @@
 				</div>
 			</div>
 			<div id="details" class="details">
-					<div>Username</div><div id='duname'></div>
-					<div>No. Of Tests</div><div id='dnotries'></div>
-					<div>Highest speeds(gross)</div><div id='dhgwpm'></div>
-					<div>Highest speeds(net)</div><div id='dhnwpm'></div>
-					<div id="editAC" class="editAC">Edit Account Details</div>
+				<div>Username</div><div id='duname'></div>
+				<div>No. Of Tests</div><div id='dnotries'></div>
+				<div>Highest speeds(gross)</div><div id='dhgwpm'></div>
+				<div>Highest speeds(net)</div><div id='dhnwpm'></div>
+				<div id="editAC" class="editAC">Edit Account Details</div>
 			</div>
 			<div id="aceditor" class="aceditor">
-				ralph
+				<span id="close" class="close">X</span>
+				<div id="editor" class="editor">
+					<div>User Name:</div><div><input type="text" id="uname" class="val"/></div>
+					<div>New Password:</div><div><input type="password" id="pass" class="val"/></div>
+					<div>Repeat Password:</div><div><input type="password" id="rpass" class="val"/></div>
+					<div>Security Question</div><div><select class="val" id="secque" name="secque"/>
+														<option value="What is your favourite color?">What is your favourite color?</option>
+														<option value="Which city were you born in?">Which city were you born in?</option>
+														<option value="What is your favourite food?">What is your favourite food?</option>
+													  </select></div>
+					<div>Answer</div><div><input type="text" id="secans" class="val"/></div>
+				</div>
+				<div id="buttons" class="buttons"><div id="save" class="save">Save</div><div id="delac" class="delac">Delete Account</div>
+				</div>
+				<div id="cdelac" class="cdelac">
+					<div>Confirm Delete?</div>
+					<div id="yes" class="yes">Yes</div>
+					<div id="no" class="no">No</div>
+				</div>
 			</div>
-		</div>
+		
 		<?php
 		echo "<div id='wordslist' style='display:none'><br/>";
 		$wrdlist = $conn->query("select value from texts");

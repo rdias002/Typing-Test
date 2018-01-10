@@ -200,7 +200,10 @@ $(document).ready(function(){
 		$('#time-dd-contents').hide();
 	});
 	$('#editAC').click(function(){
-		$('#aceditor').toggle(200);
+		$('#aceditor').fadeToggle(200,function(){$('#container').toggle();});
 	});
-
+	$('#close').click(function(){
+		$('#container').toggle();
+		$('#aceditor').fadeToggle(200);
+	});
 });
