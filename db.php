@@ -18,7 +18,7 @@
 			usecans varchar(40) not null , 
 			primary key(uname));
 		");
-				echo $conn->error;
+		echo $conn->error;
 
 		//Creation of table UserDetails
 		$conn->query("create table userdetails(
@@ -31,11 +31,11 @@
 			foreign key(uname) references users(uname)
 			);
 		");
-				echo $conn->error;
+		echo $conn->error;
 
 		//Creation of table Texts
 		$conn->query("create table texts (textid int(2) primary key, value longtext)");
-				echo $conn->error;
+		echo $conn->error;
 
 		//Creation of table Highscores
 		$conn->query("create table highscores(

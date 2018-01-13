@@ -18,7 +18,7 @@ body{
 }
 .bod{
 	display:grid;
-	grid-template-columns:25fr 50fr 25fr;
+	grid-template-columns:30fr 50fr 20fr;
 	grid-template-areas:"left center right";
 	grid-gap:20px;
 }
@@ -26,7 +26,7 @@ body{
 	position:relative;
 	grid-area:center;
 	margin:0 auto;
-	width:600px;
+	width:500px;
 	display:grid;
 	grid-template-rows: 3fr 2fr;
 	grid-template-areas: "output" "input";
@@ -166,7 +166,7 @@ button.replay:hover {
 	background:white;
 	border-radius:5px;
 	height:400px;
-	width:100%;
+	width:5000%;
 	z-index:2;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 	position:relative;
