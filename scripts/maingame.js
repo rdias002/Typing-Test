@@ -163,16 +163,22 @@ inputf.addEventListener('keydown',function(){
 
 document.getElementById('replay').addEventListener('click',resetWords);
 $(document).ready(function(){
-	
-	
-	$.ajax({type: 'POST',url: '',data: {'PageReady':true},datatype:'json',success: function(data){ 
-		var userDetails = $.parseJSON(data);
-		$('#duname').text(userDetails.uname);
-		$('#dnotries').text(userDetails.notries);
-		$('#dhgwpm').text(userDetails.hgrosswpm);
-		$('#dhnwpm').text(userDetails.hnetwpm);
-	}});
-	
+	$.ajax({
+		type: 'POST',
+		url: '',
+		data:{'PageReady':true},
+		datatype:'json',
+		success: function(data){ 
+			var userDetails = $.parseJSON(data);
+			$('#duname').text(userDetails.uname);
+			$('#dnotries').text(userDetails.notries);
+			$('#dhgwpm').text(userDetails.hgrosswpm);
+			$('#dhnwpm').text(userDetails.hnetwpm);
+			if(userDetails.uname != 'Guest'){
+				$('#editAC').show();
+			}
+		}
+	});
 	$('#time-dd').mouseenter(function(){
 		$('#time-dd-contents').show();
 	});
@@ -200,10 +206,47 @@ $(document).ready(function(){
 		$('#time-dd-contents').hide();
 	});
 	$('#editAC').click(function(){
-		$('#aceditor').fadeToggle(200,function(){$('#container').toggle();});
+		$('#aceditor').fadeToggle(200,function(){
+			$('#container').toggle();
+		});
+		$.ajax({
+			type:'POST',
+			url:'',
+			data:{'getDetails':true},
+			datatype:'json',
+			success:function(data){
+				var details = $.parseJSON(data);
+				$('#uname').val(details.uname);
+				$('#email').val(details.uemail);
+				$('#mobile').val(details.umobile);
+				$('#secque').val(details.usecque);
+				$('#secans').val(details.usecans);
+			}
+		});
 	});
 	$('#close').click(function(){
 		$('#container').toggle();
 		$('#aceditor').fadeToggle(200);
 	});
+	$('#save').click(function(){
+		$('#feditor').validate();
+		//$('#container').toggle();
+		//$('#aceditor').fadeToggle(200);
+	});
+	$('#delac').click(function(){
+		$('#cdelac').show(200);
+	});
+	$('#yes').click(function(){	
+		$.post(window.location,{loggedout:'true'});
+		$.ajax({
+			type:'post',
+			url:'',
+			data:{'deleteAccount':true,'user':$('#duname').text()}
+		});
+		location.reload();
+	});
+	$('#no').click(function(){
+		$('#cdelac').hide(200);
+	});
+	
 });

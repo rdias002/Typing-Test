@@ -1,7 +1,7 @@
 <?php
 	session_start();
 	if(isset($_SESSION["username"]) && $_SESSION["username"] != 'Guest'){
-		header( 'Location:maingame.php' );
+		header( 'Location:index.php' );
 	}
 ?>
 <!DOCTYPE html>
@@ -23,7 +23,7 @@
 			<tr><td colspan="2" style="text-align:center"> <input type="submit"  name="submit" id="submit" value="Login" class="btn"/></td></tr>
 			<tr><td colspan="2" style="text-align:center">Don't have an account? <a style="color:white" href="signup.php">Sign Up</a></td></tr>
 			<tr><td colspan="2" style="text-align:center"><a style="color:white" href="forgotpassword.php">Forgot password?</a></td></tr>
-			<tr><td colspan="2" style="text-align:center"><a style="color:white" href="maingame.php">Not Now</a></td></tr>
+			<tr><td colspan="2" style="text-align:center"><a style="color:white" href="index.php">Not Now</a></td></tr>
 			</table>
 		</form>
 	
@@ -43,7 +43,7 @@
 			echo "<br/><br/><strong>Invalid Username & Password</strong><br>";
 		else{
 			$_SESSION["username"] = $username;
-			header( 'Location:maingame.php' );
+			header( 'Location:index.php' );
 		}
 	//	print_r($user);
 	}

@@ -42,6 +42,30 @@
 		echo json_encode($row);
 		die();
 	}
+	if(isset($_POST['getDetails'])){
+		$row = ($conn->query("select * from users where uname = '$user';"))->fetch_assoc();
+		echo json_encode($row);
+		die();
+	}
+	if(isset($_POST["uname"],$_POST["email"],$_POST["mobile"],$_POST["secque"],$_POST["secans"])){
+				$sUsername = $_POST["uname"];
+				$sSPassword = $_POST["pass"];
+				$sCPassword = $_POST["rpass"];
+				$sEmail = $_POST["email"];
+				$sMobile = $_POST["mobile"];
+				$sSecQue = $_POST["secque"];
+				$sSecAns = $_POST["secans"];
+				if($conn->errno)
+					die("Error at server side. Will be fixed soon. Sorry for the inconvinience");
+				if($sSPassword != $sCPassword){
+					die("Passwords don't match");
+				}
+	}
+	if(isset($_POST['deleteAccount'])){
+		$user = $_POST['user'];
+		$conn->query("delete from userdetails where uname = '$user'");
+		$conn->query("delete from users where uname = '$user'");
+	}
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +82,7 @@
 		<b><span class="user" id="user" style="color:white;font-size:23px;"></span></b>&nbsp;
 		<a href="login.php" id="login">Login</a>
 		<a href="signup.php" id="signup">Sign Up</a>
-		<a href="maingame.php" id="logout">Log Out</a>
+		<a href="index.php" id="logout">Log Out</a>
 		</div>
 		<h1 style="font-size:50px">Online Typing Test</h1>
 		<br/><br/>
@@ -89,26 +113,49 @@
 			</div>
 			<div id="aceditor" class="aceditor">
 				<span id="close" class="close">X</span>
+				<form id="feditor" action="" method="post">
 				<div id="editor" class="editor">
+					
 					<div>User Name:</div><div><input type="text" id="uname" class="val"/></div>
 					<div>New Password:</div><div><input type="password" id="pass" class="val"/></div>
 					<div>Repeat Password:</div><div><input type="password" id="rpass" class="val"/></div>
-					<div>Security Question</div><div><select class="val" id="secque" name="secque"/>
+					<div>Email:</div><div><input type="email" id="email" class="val"/></div>
+					<div>Mobile:</div><div><input type="mobile" id="mobile" class="val"/></div>
+					<div>Security Question:</div><div><select class="val" id="secque" name="secque"/>
 														<option value="What is your favourite color?">What is your favourite color?</option>
 														<option value="Which city were you born in?">Which city were you born in?</option>
 														<option value="What is your favourite food?">What is your favourite food?</option>
 													  </select></div>
-					<div>Answer</div><div><input type="text" id="secans" class="val"/></div>
+					<div>Answer:</div><div><input type="text" id="secans" class="val"/></div>
 				</div>
-				<div id="buttons" class="buttons"><div id="save" class="save">Save</div><div id="delac" class="delac">Delete Account</div>
+				<div id="buttons" class="buttons">
+					<input type="submit" id="save" class="save" value="Save"/><div id="delac" class="delac">Delete Account</div>
 				</div>
 				<div id="cdelac" class="cdelac">
 					<div>Confirm Delete?</div>
-					<div id="yes" class="yes">Yes</div>
 					<div id="no" class="no">No</div>
+					<div id="yes" class="yes">Yes</div>
 				</div>
+			</form>
 			</div>
-		
+			<div id="highscores" class="highscores">
+				<div class="highscores-title">Highscores</div>
+				<div>Sr. No.</div><div>Username</div><div>wpm</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+				<div>a</div><div>a</div><div>a</div>
+			</div>
+		</div>
 		<?php
 		echo "<div id='wordslist' style='display:none'><br/>";
 		$wrdlist = $conn->query("select value from texts");
@@ -143,7 +190,6 @@
 				$.post(window.location,{loggedout:'true'});
 				location.reload();
 				$(this).hide();
-				
 			});
 		});
 		</script>

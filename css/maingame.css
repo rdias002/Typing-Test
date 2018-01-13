@@ -155,13 +155,14 @@ button.replay:hover {
 
 .editAC{
 	cursor:pointer;
+	display:none;
 }
 .editAC:hover{
 	text-decoration:underline;
 }
 .aceditor{
 	grid-area:center;
-	display:block;
+	display:none;
 	background:white;
 	border-radius:5px;
 	height:400px;
@@ -171,7 +172,7 @@ button.replay:hover {
 	position:relative;
 }
 .editor{
-	padding:40px;
+	padding:30px;
 	display:grid;
 	grid-template-columns:2fr 3fr;
 	grid-gap:10px;
@@ -179,25 +180,23 @@ button.replay:hover {
 
 .editor div{
 	color:black;
-	height:35px;
-	padding-top:5px;
+	height:25px;
+	padding-top:2px;
 	font-size:25px;;
 	text-align:left;
 	border:black solid;
-	border-width: 0px 0px 1px;
+	border-width: 0px;
 }
 .val{
 	background: transparent;				
 	color:black;
 	font-size:20px;
-	border:2px white solid;
+	border:1px black solid;
 	padding:0px 5px;
 	display:block;
 	height:100%;
 	width:100%;
-}
-.val:focus{
-	border:0px;
+	outline:0px;
 }
 .close{
 	position:absolute;
@@ -240,7 +239,7 @@ button.replay:hover {
 	cursor:pointer;
 }
 .cdelac{
-	display:block;
+	display:none;
 	height:100px;
 	width:250px;
 	z-index:1;
@@ -250,22 +249,43 @@ button.replay:hover {
 	top:30%;
 	left:30%;
 }
-.cdelac div{
+.cdelac {
 	color:black;
 	font-size:25px;
-	margin:5px 5px 0px 5px;
 }
 .yes{
-	cursor:pointer;
-}
-.yes:hover{
-	background-color:red;
 	color:white;
+	cursor:pointer;
+	background-color:red;
+	margin:5px 5px 0px 5px;
+
 }
 .no{
 	cursor:pointer;
-}
-.no:hover{
 	background-color:green;
 	color:white;
+	margin:5px 5px 0px 5px;
+
+}
+.highscores{
+	grid-area:center;
+	margin:60% 0% 10% 0%;
+	padding:20px;
+	border:2px white solid;
+	background-color:transparent;
+	position:relative;
+	font-size:25px;
+	display:grid;
+	grid-template-columns:1fr 2fr 2fr;
+	grid-gap:10px;
+	
+}
+.highscores div{
+	height:30px;
+}
+.highscores-title{
+	grid-column: 1 / span 3;
+	margin:auto;
+	font-size:35px;
+	text-decoration:underline;
 }
