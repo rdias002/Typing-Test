@@ -97,7 +97,7 @@ inputf.addEventListener('input',function (){
 				words.style='opacity:0';
 				var info = {'completed':true,'grosswpm':grosswpm,'netwpm':netwpm,'accuracy':accuracy};
 				$.ajax({type:'post',data:info,url:'',success:function(data){
-					//alert(res)
+					//alert($.parseJSON(data));
 					var userDetails = $.parseJSON(data);
 					if(userDetails.uname == 'Guest'){
 						var tempgwpm = parseInt($('#dhgwpm').text());
@@ -134,7 +134,7 @@ inputf.addEventListener('input',function (){
 		word.setAttribute('class','highlight');
 		this.value = '';
 		letterno = 0;
-		if(wordsTyped == 15){
+		if(wordsTyped == 10){
 			while(sw < wordno){
 				document.getElementById(String(sw)).setAttribute('style','display:none');
 				sw++;
@@ -179,6 +179,16 @@ $(document).ready(function(){
 			}
 		}
 	});
+	
+/* 	$.ajax({
+		type:'POST',
+		url:'',
+		data:{'getHighscore':true},
+		datatype:'json'
+	});
+	
+	 */
+	
 	$('#time-dd').mouseenter(function(){
 		$('#time-dd-contents').show();
 	});
@@ -225,13 +235,27 @@ $(document).ready(function(){
 		});
 	});
 	$('#close').click(function(){
-		$('#container').toggle();
-		$('#aceditor').fadeToggle(200);
-	});
-	$('#save').click(function(){
-		$('#feditor').validate();
 		//$('#container').toggle();
 		//$('#aceditor').fadeToggle(200);
+		location.reload();
+	});
+	$("#feditor").submit(function(e){
+		e.preventDefault();
+		if($("#pass").val() != $("#rpass").val()){
+			$("#pass").css("border","1px red solid");
+			$("#rpass").css("border","1px red solid");
+			return;
+		}	
+		$.post('index.php',{
+			'update':true,
+			'uuname': $("#uname").val(),
+			'upass': $("#pass").val(),
+			'uemail': $("#email").val(),
+			'umobile': $("#mobile").val(),
+			'usecque': $("#secque").val(),
+			'usecans': $("#secans").val()
+		},function(){location.reload()});
+		
 	});
 	$('#delac').click(function(){
 		$('#cdelac').show(200);

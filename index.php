@@ -20,19 +20,24 @@
 			if($user != 'Guest'){
 				$details = ($conn->query("select * from userdetails where uname = '$user';"))->fetch_assoc();
 				if($details['hgrosswpm']<$gwpm){
-					$que = "update userdetails set hgrosswpm = $gwpm where uname = '$user'";
+					$que = "update userdetails set hgrosswpm = $gwpm where uname = '$user';";
 					$conn->query($que);
 				}
 				if($details['hnetwpm']<$nwpm){
-					$que = "update userdetails set hnetwpm = $nwpm where uname = '$user'";
+					$que = "update userdetails set hnetwpm = $nwpm where uname = '$user';";
 					$conn->query($que);
 				}
 				if($details['haccuracy']<$acc){
-					$que = "update userdetails set haccuracy= $acc where uname = '$user'";
+					$que = "update userdetails set haccuracy= $acc where uname = '$user';";
 					$conn->query($que);
 				}
-				$que = "update userdetails set notries= notries + 1 where uname = '$user'";
+				$que = "update userdetails set notries= notries + 1 where uname = '$user';";
 				$conn->query($que);
+				if($nwpm != 0){
+					$que = "insert into highscores (uname,hnetwpm) values ('$user',$nwpm);";
+					$conn->query($que);
+				}
+				//echo $conn->error;
 			}
 			echo json_encode(($conn->query("select * from userdetails where uname = '$user';"))->fetch_assoc());
 			die();
@@ -47,23 +52,27 @@
 		echo json_encode($row);
 		die();
 	}
-	if(isset($_POST["uname"],$_POST["email"],$_POST["mobile"],$_POST["secque"],$_POST["secans"])){
-				$sUsername = $_POST["uname"];
-				$sSPassword = $_POST["pass"];
-				$sCPassword = $_POST["rpass"];
-				$sEmail = $_POST["email"];
-				$sMobile = $_POST["mobile"];
-				$sSecQue = $_POST["secque"];
-				$sSecAns = $_POST["secans"];
-				if($conn->errno)
-					die("Error at server side. Will be fixed soon. Sorry for the inconvinience");
-				if($sSPassword != $sCPassword){
-					die("Passwords don't match");
-				}
+	if(isset($_POST['update'])){
+		$uUsername = $_POST["uuname"];
+		$uPassword = $_POST["upass"];
+		$uEmail = $_POST["uemail"];
+		$uMobile = $_POST["umobile"];
+		$uSecQue = $_POST["usecque"];
+		$uSecAns = $_POST["usecans"];
+		$conn->query("update users set uemail = '$uEmail', umobile = '$uMobile', usecque = '$uSecQue', uSecAns = '$uSecAns' where uname = '$user'");
+		if($uPassword != ''){
+			$conn->query("update users set upassword = '$uPassword' where uname = '$user'");
+		//uname = '$uUsername', ,
+		}
+		if($user != $uUsername){
+			$_SESSION["username"] = $uUsername;
+		}
 	}
+	
 	if(isset($_POST['deleteAccount'])){
 		$user = $_POST['user'];
 		$conn->query("delete from userdetails where uname = '$user'");
+		$conn->query("delete from highscores where uname = '$user'");
 		$conn->query("delete from users where uname = '$user'");
 	}
 ?>
@@ -113,20 +122,20 @@
 			</div>
 			<div id="aceditor" class="aceditor">
 				<span id="close" class="close">X</span>
-				<form id="feditor" action="" method="post">
+				<form id="feditor">
 				<div id="editor" class="editor">
 					
-					<div>User Name:</div><div><input type="text" id="uname" class="val"/></div>
-					<div>New Password:</div><div><input type="password" id="pass" class="val"/></div>
-					<div>Repeat Password:</div><div><input type="password" id="rpass" class="val"/></div>
-					<div>Email:</div><div><input type="email" id="email" class="val"/></div>
-					<div>Mobile:</div><div><input type="mobile" id="mobile" class="val"/></div>
+					<div>User Name:</div><div><input type="text" id="uname" class="val" disabled/></div>
+					<div>New Password:</div><div><input type="password" id="pass" class="val" /></div>
+					<div>Repeat Password:</div><div><input type="password" id="rpass" class="val" /></div>
+					<div>Email:</div><div><input type="email" id="email" name="email" class="val" required/></div>
+					<div>Mobile:</div><div><input type="mobile" id="mobile" name="mobile" class="val" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" title="Enter a valid number" required/></div>
 					<div>Security Question:</div><div><select class="val" id="secque" name="secque"/>
 														<option value="What is your favourite color?">What is your favourite color?</option>
 														<option value="Which city were you born in?">Which city were you born in?</option>
 														<option value="What is your favourite food?">What is your favourite food?</option>
 													  </select></div>
-					<div>Answer:</div><div><input type="text" id="secans" class="val"/></div>
+					<div>Answer:</div><div><input type="text" id="secans" class="val" required/></div>
 				</div>
 				<div id="buttons" class="buttons">
 					<input type="submit" id="save" class="save" value="Save"/><div id="delac" class="delac">Delete Account</div>
@@ -141,19 +150,20 @@
 			<div id="highscores" class="highscores">
 				<div class="highscores-title">Highscores</div>
 				<div>Sr. No.</div><div>Username</div><div>wpm</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
-				<div>a</div><div>a</div><div>a</div>
+				<?php
+				if(true){//isset($_POST["getHighscores"])
+					$highscores = $conn->query("select * from highscores order by hnetwpm desc");
+					echo $conn->error;
+					if($highscores->num_rows > 0){
+						$i = 1;
+						while($row = $highscores->fetch_assoc()){
+							echo "<div>".$i."</div><div>".$row['uname']."</div><div>".$row['hnetwpm']."</div>";
+							$i = $i + 1;
+						}
+					}
+				}
+				?>
+				
 			</div>
 		</div>
 		<?php
@@ -188,8 +198,8 @@
 				$("#login").show();
 				$("#signup").show();	
 				$.post(window.location,{loggedout:'true'});
-				location.reload();
 				$(this).hide();
+				location.reload();
 			});
 		});
 		</script>

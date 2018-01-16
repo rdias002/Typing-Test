@@ -41,6 +41,20 @@
 				color:white;
 				background-color:rgb(199,44,50);
 			}
+			form{
+				position:relative;
+			}
+			form table{
+				margin-left:30%;
+			}
+			#message{
+			}
+			#icon{
+				font-weight:bold;
+				cursor:pointer;
+				padding:10px;
+			}
+			
 		</style>
 	</head>
 	<body>
@@ -48,11 +62,11 @@
 		<h2>Welcome To Your Online Typing Test</h2>
 		<form action="" method="POST">
 			<table align="center" style="margin-top:100px">
-			<tr><td>*User Name:</td><td> <input type="text"  name="sUsername" id="sUsername" size="23" value="<?php echo isset($_POST["sUsername"])?$_POST["sUsername"]:""?>" class="val" maxlength="10" required/></td></tr>
+			<tr><td>*User Name:</td><td> <input type="text"  name="sUsername" id="sUsername" size="23" value="<?php echo isset($_POST["sUsername"])?$_POST["sUsername"]:""?>" class="val" maxlength="10" required/></td><td><span id="icon">Note:</span><span id="message">(It can't be changed later)</span></td></tr>
 			<tr><td>*Password:</td><td> <input type="password"  name="sSPassword" id="sSPassword" size="23" class="val" maxlength="32" required/></td></tr>
 			<tr><td>*Confirm Password:</td><td> <input type="password"  name="sCPassword" id="sCPassword" size="23" class="val" maxlength="32" required/></td></tr>
 			<tr><td>*Email:</td><td> <input type="email"  name="sEmail" id="sEmail" size="23" class="val" maxlength="30" value="<?php echo isset($_POST["sEmail"])?$_POST["sEmail"]:""?>" required/></td></tr>
-			<tr><td>Mobile Number:</td><td> <input type="text"  name="sMobile" id="sMobile" size="23" value="<?php echo isset($_POST["sMobile"])?$_POST["sMobile"]:""?>" class="val" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$"/></td></tr>
+			<tr><td>Mobile Number:</td><td> <input type="text"  name="sMobile" id="sMobile" size="23" value="<?php echo isset($_POST["sMobile"])?$_POST["sMobile"]:""?>" class="val" pattern="^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$" /></td></tr>
 			<tr><td>*Security Question:</td><td> <select class="val" id="sSecQue" name="sSecQue"/>
 				<option value="What is your favourite color?">What is your favourite color?</option>
 				<option value="Which city were you born in?">Which city were you born in?</option>
@@ -91,6 +105,10 @@
 				";
 				$conn->real_query($que);
 				$que ="
+					insert into highscores (uname,hnetwpm) values ('$sUsername',0);
+				";
+				$conn->real_query($que);
+				$que ="
 					insert into userdetails (uname,hgrosswpm,hnetwpm,haccuracy, notries) values ('$sUsername',0,0,0,0);
 				";
 				
@@ -105,7 +123,5 @@
 			}
 		
 		?>
-		
-
 	</body>
 </html>
