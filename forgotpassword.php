@@ -8,14 +8,8 @@
 <html>
 	<head>
 		<title>Password Recovery Page</title>
+		<link rel="stylesheet" href="css/body.css"/>
 		<style>
-			body{
-				background:url(res/indexbg.jpg) no-repeat center center fixed;
-				font-size:20px;
-				background-size: cover;
-				color: white;
-				text-align:center;
-			}
 			td{
 				color : white;
 				font-size:20px;

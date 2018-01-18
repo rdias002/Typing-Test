@@ -58,7 +58,7 @@ function resetWords(){
 	document.getElementById('time').innerHTML=(Math.floor(sec/60))+':00';
 	words.style='opacity:1';
 	res.style='opacity:0';				
-					
+	$.ajax({type:'post',url:'',data:{'getHighscores':true}});
 }
 initialize();
 //Variable initialization
@@ -112,7 +112,7 @@ inputf.addEventListener('input',function (){
 						$('#dhnwpm').text(userDetails.hnetwpm);
 					}
 				}});
-				
+				$.ajax({type:'post',url:'',data:{'getHighscores':true}});
 			}
 		},1000);
 	}
@@ -179,7 +179,7 @@ $(document).ready(function(){
 			}
 		}
 	});
-	
+	$.ajax({type:'post',url:'',data:{'getHighscores':true}});
 /* 	$.ajax({
 		type:'POST',
 		url:'',

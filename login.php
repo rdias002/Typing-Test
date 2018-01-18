@@ -8,8 +8,28 @@
 <html>
 	<head>
 		<title>Login Page</title>
-		<link rel="stylesheet" href="css/login.css"/>
+		<link rel="stylesheet" href="css/body.css"/>
 		<style>
+			.val{
+				background: transparent;				
+				color:white;
+				font-size:15px;
+				border:1px white solid;
+				padding:3px 5px;
+			}
+			td{
+				color : white;
+				font-size:20px;
+				text-align:left;
+			}
+			.btn{
+				color : white;
+				background-color : transparent;
+				border : 1px white solid;
+				font-size : 20px;
+				padding : 10px;
+				margin-top : 10px;
+			}
 			
 		</style>
 	</head>

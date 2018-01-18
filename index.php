@@ -9,8 +9,10 @@
 	}
 	$user = $_SESSION["username"];
 	if(isset($_POST['loggedout'])){
-		session_unset();
-		session_destroy();
+		//session_unset();
+		//session_destroy();
+		$_SESSION["username"] = 'Guest';
+		header("Refresh:0");
 		die();
 	}
 	if(isset($_POST['completed'])){
@@ -62,7 +64,6 @@
 		$conn->query("update users set uemail = '$uEmail', umobile = '$uMobile', usecque = '$uSecQue', uSecAns = '$uSecAns' where uname = '$user'");
 		if($uPassword != ''){
 			$conn->query("update users set upassword = '$uPassword' where uname = '$user'");
-		//uname = '$uUsername', ,
 		}
 		if($user != $uUsername){
 			$_SESSION["username"] = $uUsername;
@@ -74,6 +75,7 @@
 		$conn->query("delete from userdetails where uname = '$user'");
 		$conn->query("delete from highscores where uname = '$user'");
 		$conn->query("delete from users where uname = '$user'");
+		die();
 	}
 ?>
 
@@ -81,7 +83,9 @@
 <html>
 	<head>
 		<title>Online Typing Test</title>
-		<?php echo "<link rel='stylesheet' href='css/maingame.css?$n'/>";?>
+		<link rel="stylesheet" href="css/body.css"/>
+		<?php 
+		echo "<link rel='stylesheet' href='css/maingame.css?$n'/>";?>
 		<style>
 			
 		</style>
@@ -151,12 +155,15 @@
 				<div class="highscores-title">Highscores</div>
 				<div>Sr. No.</div><div>Username</div><div>wpm</div>
 				<?php
-				if(true){//isset($_POST["getHighscores"])
-					$highscores = $conn->query("select * from highscores order by hnetwpm desc");
+				if(true){	//isset($_POST["getHighscores"])
+					$highscores = $conn->query("select distinct * from highscores order by hnetwpm desc");
 					echo $conn->error;
 					if($highscores->num_rows > 0){
 						$i = 1;
 						while($row = $highscores->fetch_assoc()){
+							if($i==21){
+								break;
+							}
 							echo "<div>".$i."</div><div>".$row['uname']."</div><div>".$row['hnetwpm']."</div>";
 							$i = $i + 1;
 						}
@@ -195,10 +202,10 @@
 				$("#logout").hide();
 			}
 			$("#logout").click(function(){
-				$("#login").show();
+				/*$("#login").show();
 				$("#signup").show();	
+				$(this).hide();*/
 				$.post(window.location,{loggedout:'true'});
-				$(this).hide();
 				location.reload();
 			});
 		});
