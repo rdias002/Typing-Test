@@ -9,9 +9,9 @@
 	}
 	$user = $_SESSION["username"];
 	if(isset($_POST['loggedout'])){
-		//session_unset();
-		//session_destroy();
-		$_SESSION["username"] = 'Guest';
+		session_unset();
+		session_destroy();
+		//$_SESSION["username"] = 'Guest';
 		header("Refresh:0");
 		die();
 	}
@@ -205,7 +205,7 @@
 				/*$("#login").show();
 				$("#signup").show();	
 				$(this).hide();*/
-				$.post(window.location,{loggedout:'true'});
+				$.post(window.location,{'loggedout':'true'});
 				location.reload();
 			});
 		});
